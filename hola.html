@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Datos sensor</title>
+</head>
+<body>
+  <h1>Lecturas</h1>
+  <pre id="salida">Cargando...</pre>
+
+  <script>
+    const url = 'SCRIPT_URL'; // tu doGet URL (el mismo script)
+    async function carga() {
+      try {
+        const r = await fetch(url);
+        const data = await r.json();
+        document.getElementById('salida').textContent = JSON.stringify(data.slice(-20).reverse(), null, 2);
+      } catch(e) {
+        document.getElementById('salida').textContent = 'Error: ' + e;
+      }
+    }
+    carga();
+    setInterval(carga, 15000); // refresca cada 15s
+  </script>
+</body>
+</html>
+
